@@ -1,3 +1,34 @@
+<?php 
+    $NAME = "";
+    $EMAI = "";
+    $CONTACT = "";
+
+    $errorMessage = "";
+    $succesMessage = "";
+
+    if ( $_SERVER['REQUEST_METHOD'] == 'POST') {
+        $NAME = $_POST["name"];
+        $EMAI = $_POST["email"];
+        $CONTACT = $_POST["contact"];
+        
+        do {
+            if ( empty($NAME) || empty($EMAI)) {
+                $errorMessage = "you have to provide name and email";
+                break;
+            }
+
+            $NAME = "";
+            $EMAI = "";
+            $CONTACT = "";
+
+            $succesMessage = "client added correctly";
+
+
+        } while (false);
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,23 +47,29 @@
             New client
         </h5>
         <br>
+
+        <?php  
+            if (!empty($errorMessage)) {
+                echo "$errorMessage";
+            }
+        ?>
         <form method="post" style="width: 500px;" >
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="name" >
+                <input type="text" class="form-control"  value="<?php echo $NAME; ?>" >
                 <label for="floatingInput">Name</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingName" placeholder="example@gmail.com">
-                <label for="floatingPassword">Gmail</label>
+                <input type="email" class="form-control" value="<?php echo $EMAI; ?>">
+                <label for="floatingName">Gmail</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingContact" placeholder="contact">
-                <label for="floatingPassword">Contact</label>
+                <input type="text" class="form-control"  value="<?php echo $CONTACT; ?>">
+                <label for="floatingContact">Contact</label>
             </div>
 
             <div class="d-grid">
                <button class="btn btn-primary mb-1" type="submit" >submit</button>
-               <button class="btn btn-outline-primary" herf="/php-client-database/create.php" >cancle</button>
+               <button class="btn btn-outline-primary" herf="/php-client-database/index.php">cancle</button>
 
             </div>
         </form>

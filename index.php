@@ -15,7 +15,7 @@
     <br>
     <br>
     <h1>Clients</h1>
-    <a class="btn btn-primary" href="/PhpProject/new.php">add client</a>
+    <a class="btn btn-primary" href="/php-client-database/create.php">add client</a>
 
     <table class="table">
       <thead>
@@ -28,7 +28,7 @@
           <th>ACTIONS</th>
         </tr>
       </thead>
-      <tr>
+      <!-- <tr>
         <td>1</td>
         <td>vaishuu</td>
         <td>daydreamingvaishu@gmail.com</td>
@@ -39,7 +39,50 @@
           <a class="btn btn-primary btn-sm" href="/PhpProject/edit.php">edit</a>
           <a class="btn btn-danger btn-sm " href="/PhpProject/delete.php">delete</a>
         </td>
+      </tr> -->
+
+      <!-- connection port  -->
+      <?php
+
+      // connecting the database 
+      $servername = "localhost";
+      $username = "root";
+      $password = "";
+      $database = "phpproject";
+
+      // creat a connection  
+      $connection = mysqli_connect($servername, $username, $password, $database);
+
+      if (!$connection) {
+        die("not connected" . mysqli_connect_error());
+      }
+
+      $sql = "SELECT * FROM client";
+      $results = $connection->query($sql);
+
+      if (!$results) {
+        die("invalid query" . $connection->error);
+
+      }
+
+
+      while ($row = $results->fetch_assoc())
+        echo "
+     <tr>
+        <td>$row[id]</td>
+        <td>$row[NAME]</td>
+        <td>$row[EMAIL]</td>
+        <td>$row[CONTACT]</td>
+        <td>$row[created_at]</td>
+        <td>
+
+          <a class='btn btn-primary btn-sm' href='/PhpProject/edit.php?id=$row[id]'>edit</a>
+          <a class='btn btn-danger btn-sm' href='/PhpProject/delete.php?id=$row[id]'>delete</a>
+        </td>
       </tr>
+  ";
+      ?>
+
     </table>
   </div>
 
@@ -52,45 +95,3 @@
 </body>
 
 </html>
-
-
-<!-- connection port  -->
-<?php
-
-// connecting the database 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "phpproject";
-
-// creat a connection  
-$connection = mysqli_connect($servername, $username, $password, $database);
-
-if (!$connect) {
-  die("not connected" . mysqli_connect_error());
-}
-
-$sql = "SELECT * FROM client";
-$results = $connection->query($sql);
-
-if (!$results) {
-  die("invalid query" . $connection->error);
-
-}
-
-while ($row = $results->fetch_assoc())
-  echo "
-     <tr>
-        <td>$row[id]</td>
-        <td>$row[name]</td>
-        <td>$row[email]</td>
-        <td>$row[contact]</td>
-        <td>$row[created_at]</td>
-        <td>
-
-          <a class='btn btn-primary btn-sm' href='/PhpProject/edit.php?id=$row[id]'>edit</a>
-          <a class='btn btn-danger btn-sm' href='/PhpProject/delete.php?id=$row[id]'>delete</a>
-        </td>
-      </tr>
-  ";
-?>
