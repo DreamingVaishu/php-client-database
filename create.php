@@ -13,16 +13,27 @@
 
     <div class="container my-5">
         <h5>
-            new client
+            New client
         </h5>
-        <form method="post">
+        <br>
+        <form method="post" style="width: 500px;" >
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
+                <input type="text" class="form-control" id="floatingInput" placeholder="name" >
+                <label for="floatingInput">Name</label>
             </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingName" placeholder="example@gmail.com">
+                <label for="floatingPassword">Gmail</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingContact" placeholder="contact">
+                <label for="floatingPassword">Contact</label>
+            </div>
+
+            <div class="d-grid">
+               <button class="btn btn-primary mb-1" type="submit" >submit</button>
+               <button class="btn btn-outline-primary" herf="/php-client-database/create.php" >cancle</button>
+
             </div>
         </form>
 
