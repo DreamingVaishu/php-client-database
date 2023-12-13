@@ -1,31 +1,58 @@
-<?php 
-    $NAME = "";
-    $EMAI = "";
-    $CONTACT = "";
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "phpproject";
 
-    $errorMessage = "";
-    $succesMessage = "";
+// creat a connection  
+$connection = mysqli_connect($servername, $username, $password, $database);
 
-    if ( $_SERVER['REQUEST_METHOD'] == 'POST') {
-        $NAME = $_POST["name"];
-        $EMAI = $_POST["email"];
-        $CONTACT = $_POST["contact"];
-        
-        do {
-            if ( empty($NAME) || empty($EMAI)) {
-                $errorMessage = "you have to provide name and email";
-                break;
-            }
-
-            $NAME = "";
-            $EMAI = "";
-            $CONTACT = "";
-
-            $succesMessage = "client added correctly";
+if (!$connection) {
+    die("not connected" . mysqli_connect_error());
+}
 
 
-        } while (false);
-    }
+
+$NAME = "";
+$EMAIL = "";
+$CONTACT = "";
+
+$errorMessage = "";
+$succesMessage = "";
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $NAME = $_POST["name"];
+    $EMAIL = $_POST["email"];
+    $CONTACT = $_POST["contact"];
+
+    do {
+        if (empty($NAME) || empty($EMAIL)) {
+            $errorMessage = "you have to provide name and email";
+            break;
+        }
+
+        $sql = " INSERT INTO client (NAME , EMAIL , CONTACT ) " .
+        " VALUES ('$NAME' , '$EMAIL', '$CONTACT') ";
+        $results = $connection->query($sql);
+
+        if (!$results ) {
+            $errorMessage = "invalid query" . $connection->error ;
+            break;
+        }
+
+
+        $NAME = "";
+        $EMAIL = "";
+        $CONTACT = "";
+
+        $succesMessage = "client added correctly";
+
+        header("location : /php-client-database/index.php");
+        exit;
+
+
+    } while (false);
+}
 ?>
 
 
@@ -48,28 +75,35 @@
         </h5>
         <br>
 
-        <?php  
-            if (!empty($errorMessage)) {
-                echo "$errorMessage";
-            }
+        <?php
+        if (!empty($errorMessage)) {
+            echo "$errorMessage";
+        }
         ?>
-        <form method="post" style="width: 500px;" >
+        <form method="post" style="width: 500px;">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control"  value="<?php echo $NAME; ?>" >
+                <input type="text" class="form-control" name="name" value="<?php echo $NAME; ?>">
                 <label for="floatingInput">Name</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" value="<?php echo $EMAI; ?>">
+                <input type="email" class="form-control" name="email" value="<?php echo $EMAIL; ?>">
                 <label for="floatingName">Gmail</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control"  value="<?php echo $CONTACT; ?>">
+                <input type="text" class="form-control" name="contact" value="<?php echo $CONTACT; ?>">
                 <label for="floatingContact">Contact</label>
             </div>
 
+            <?php
+            if (!empty($succesMessage)) {
+                echo "added";
+            }
+            ?>
+            <br>
+
             <div class="d-grid">
-               <button class="btn btn-primary mb-1" type="submit" >submit</button>
-               <button class="btn btn-outline-primary" herf="/php-client-database/index.php">cancle</button>
+                <button class="btn btn-primary mb-1" herf="/php-client-database/index.php" type="submit">submit</button>
+                <a class="btn btn-outline-primary" herf="/php-client-database/index.php">cancle</a>
 
             </div>
         </form>

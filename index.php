@@ -28,18 +28,6 @@
           <th>ACTIONS</th>
         </tr>
       </thead>
-      <!-- <tr>
-        <td>1</td>
-        <td>vaishuu</td>
-        <td>daydreamingvaishu@gmail.com</td>
-        <td>no</td>
-        <td>no data</td>
-        <td>
-
-          <a class="btn btn-primary btn-sm" href="/PhpProject/edit.php">edit</a>
-          <a class="btn btn-danger btn-sm " href="/PhpProject/delete.php">delete</a>
-        </td>
-      </tr> -->
 
       <!-- connection port  -->
       <?php
